@@ -18,10 +18,10 @@ if __name__ == '__main__':
             """))
 
         if opcion == 1:
-            nombre = input('Nombre del inventario: ')
-            inventario = Inventario(nombre)     # Se dispara la clase para asignar un nuevo Inventario
+            name = input('Nombre del inventario: ')
+            inventario = Inventario(name)     # Se dispara la clase para asignar un nuevo Inventario
 
-            print(f'Se creo el inventario: {nombre}')
+            print(f'Se creo el inventario: {name}')
 
         elif opcion == 2:
             nombre_en_catalogo = input('Nombre de venta: ')
@@ -37,9 +37,17 @@ if __name__ == '__main__':
                 stock = int(stock)
 
             producto = Producto(nombre_en_catalogo, codigo, precio, categoria, stock)
+
+            try:
+                # noinspection PyUnboundLocalVariable
+                inventario.agregar_producto(producto)
+            except NameError as e:
+                print('No existe ningun inventario asignable')
+                name = input('Especifique un inventario: ')
+                inventario = Inventario(name)
+                print(f'Se creo el inventario: {name}')
+
             print(f'Se creo el producto {nombre_en_catalogo}')
-        #    inventario = input('Especifique un inventario: ')
-            inventario.agregar_producto(producto)
 
         elif opcion == 3:
             print('Catalogo de productos: ')

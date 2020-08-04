@@ -8,13 +8,14 @@ class Inventario:
         return self.nombre
 
     def agregar_producto(self, producto):
-        self._listado.append({
-            producto.nombre_en_catalogo,
-            producto.codigo,
-            producto.precio,
-            producto.categoria,
-            producto.en_stock
-        })
+        nuevo_producto = {
+            'Nombre de Catalogo': producto.nombre_en_catalogo,
+            'ID': producto.codigo,
+            'Precio': producto.precio,
+            'Categoria': producto.categoria,
+            'Cant. en Stock': producto.en_stock
+        }
+        self._listado.append(nuevo_producto)
 
     def consultar_productos(self):
         return self._listado
