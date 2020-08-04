@@ -2,6 +2,54 @@
 from Inventario import Inventario
 from Producto import Producto
 
+
+def first_section(inventario):
+
+    try:
+        while inventario:
+            opcion_secciones = int(input(
+                """Estas en la seccion de Inventarios:
+                1-Consultar inventario actual
+                2-Crear un inventario nuevo
+                3-Usar otro inventario
+                4-Cambiar nombre del inventario actual
+                5-Eliminar inventario actual
+                6-Volver
+                """))
+
+            if opcion_secciones == 1:
+                inventario.consultar_nombre_inventario()
+
+            elif opcion_secciones == 2:
+                name = input('Nombre del inventario: ')
+                inventario = Inventario(name)  # Se dispara la clase para asignar un nuevo Inventario
+
+                print(f'Se creo el inventario: {name}')
+
+            elif opcion_secciones == 3:
+                inventario = input()
+
+            elif opcion_secciones == 4:
+                inventario.name = input('Ingrese un nuevo nombre para el inventario: ')
+
+            elif opcion_secciones == 5:
+                del inventario
+
+            elif opcion_secciones == 6:
+                break
+
+            else:
+                print('Opcion incorrecta')
+
+    except NameError:
+        print('No se detecto ningun inventario')
+        name = input('Nombre del inventario: ')
+        inventario = Inventario(name)  # Se dispara la clase para asignar un nuevo Inventario
+
+        print(f'Se creo el inventario: {name}')
+    return inventario
+
+
 # Cuerpo Principal
 if __name__ == '__main__':
     ejecutar = True
@@ -10,7 +58,7 @@ if __name__ == '__main__':
     while ejecutar:
         opcion = int(input(
             """¿Qué vas a hacer?:
-            1-Crear Inventario
+            1-Administrar Inventarios
             2-Agregar producto
             3-Ver catalogo
             4-Quitar producto
@@ -18,10 +66,7 @@ if __name__ == '__main__':
             """))
 
         if opcion == 1:
-            name = input('Nombre del inventario: ')
-            inventario = Inventario(name)     # Se dispara la clase para asignar un nuevo Inventario
-
-            print(f'Se creo el inventario: {name}')
+            first_section()
 
         elif opcion == 2:
             nombre_en_catalogo = input('Nombre de venta: ')
@@ -42,10 +87,7 @@ if __name__ == '__main__':
                 # noinspection PyUnboundLocalVariable
                 inventario.agregar_producto(producto)
             except NameError as e:
-                print('No existe ningun inventario asignable')
-                name = input('Especifique un inventario: ')
-                inventario = Inventario(name)
-                print(f'Se creo el inventario: {name}')
+                first_section()
 
             print(f'Se creo el producto {nombre_en_catalogo}')
 
