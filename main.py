@@ -1,12 +1,13 @@
+# Se importan las clases de los otros archivos
 from Inventario import Inventario
 from Producto import Producto
 
-
+# Cuerpo Principal
 if __name__ == '__main__':
     ejecutar = True
+    print('- - - RHODOVENTORY 0.1 - - -')
 
     while ejecutar:
-        print('- - - RHODOVENTORY 0.1 - - -')
         opcion = int(input(
             """¿Qué vas a hacer?:
             1-Crear Inventario
@@ -18,7 +19,7 @@ if __name__ == '__main__':
 
         if opcion == 1:
             nombre = input('Nombre del inventario: ')
-            inventario = Inventario(nombre)
+            inventario = Inventario(nombre)     # Se dispara la clase para asignar un nuevo Inventario
 
             print(f'Se creo el inventario: {nombre}')
 
@@ -28,6 +29,8 @@ if __name__ == '__main__':
             precio = input('Precio: ')
             categoria = input('Categoria: ')
             stock = input('Cantidad(opcional): ')
+
+            # Se asigna una cantidad de stock por defecto
             if stock == '':
                 stock = 1
             else:
