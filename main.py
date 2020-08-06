@@ -1,58 +1,70 @@
 # Se importan las clases de los otros archivos
-from Inventario import Inventario
 from Producto import Producto
+from Inventario import Inventario
 
 
-def first_section(inventario):
+def first_section(actual, lista):
 
-    try:
-        while inventario:
-            opcion_secciones = int(input(
-                """Estas en la seccion de Inventarios:
-                1-Consultar inventario actual
-                2-Crear un inventario nuevo
-                3-Usar otro inventario
-                4-Cambiar nombre del inventario actual
-                5-Eliminar inventario actual
-                6-Volver
-                """))
+    loop1 = True
 
-            if opcion_secciones == 1:
-                inventario.consultar_nombre_inventario()
+    while loop1:
+        opcion_secciones = int(input(
+            """Estas en la seccion de Inventarios:
+            1-Consultar inventario actual
+            2-Crear un inventario nuevo
+            3-Usar otro inventario
+            4-Cambiar nombre del inventario actual
+            5-Eliminar inventario actual
+            6-Volver
+            """))
 
-            elif opcion_secciones == 2:
-                name = input('Nombre del inventario: ')
-                inventario = Inventario(name)  # Se dispara la clase para asignar un nuevo Inventario
+        if opcion_secciones == 1:
+            print(actual.consultar_nombre_inventario())
 
-                print(f'Se creo el inventario: {name}')
+        elif opcion_secciones == 2:
+            name = input('Nombre del inventario: ')
+            lista += actual
+            actual = Inventario(name)  # Se dispara la clase para asignar un nuevo Inventario
 
-            elif opcion_secciones == 3:
-                inventario = input()
+            print(f'Se creo el inventario: {name}')
 
-            elif opcion_secciones == 4:
-                inventario.name = input('Ingrese un nuevo nombre para el inventario: ')
+        elif opcion_secciones == 3:
+            print(lista)
+            index = int(input('Ingrese un indice: '))
+            reemplazo = lista[index]
+            lista[index] = actual
+            actual = reemplazo
 
-            elif opcion_secciones == 5:
-                del inventario
+            print('Se esta utlizando el inventario seleccionado')
 
-            elif opcion_secciones == 6:
-                break
+        elif opcion_secciones == 4:
+            actual.name = input('Ingrese un nuevo nombre para el actual: ')
 
-            else:
-                print('Opcion incorrecta')
+        elif opcion_secciones == 5:
+            del actual
 
-    except NameError:
-        print('No se detecto ningun inventario')
-        name = input('Nombre del inventario: ')
-        inventario = Inventario(name)  # Se dispara la clase para asignar un nuevo Inventario
+        elif opcion_secciones == 6:
+            break
 
-        print(f'Se creo el inventario: {name}')
+        else:
+            print('Opcion incorrecta')
+
+    return actual, lista
+
+
+def creacion_de_inventario():
+    print('No se detecto ningun inventario')
+    name = input('Nombre del inventario: ')
+    inventario = Inventario(name)  # Se dispara la clase para asignar un nuevo Inventario
+
+    print(f'Se creo el inventario: {name}')
     return inventario
 
 
 # Cuerpo Principal
 if __name__ == '__main__':
     ejecutar = True
+    inventarios_antiguos = []
     print('- - - RHODOVENTORY 0.1 - - -')
 
     while ejecutar:
@@ -66,7 +78,10 @@ if __name__ == '__main__':
             """))
 
         if opcion == 1:
-            first_section()
+            try:
+                (inventario, inventarios_antiguos) = first_section(inventario, inventarios_antiguos)
+            except NameError:
+                inventario = creacion_de_inventario()
 
         elif opcion == 2:
             nombre_en_catalogo = input('Nombre de venta: ')
@@ -87,7 +102,7 @@ if __name__ == '__main__':
                 # noinspection PyUnboundLocalVariable
                 inventario.agregar_producto(producto)
             except NameError as e:
-                first_section()
+                inventario = creacion_de_inventario()
 
             print(f'Se creo el producto {nombre_en_catalogo}')
 
