@@ -23,7 +23,7 @@ def first_section(actual, lista):
 
         elif opcion_secciones == 2:
             name = input('Nombre del inventario: ')
-            lista += actual
+            lista.append(actual)
             actual = Inventario(name)  # Se dispara la clase para asignar un nuevo Inventario
 
             print(f'Se creo el inventario: {name}')
@@ -38,10 +38,12 @@ def first_section(actual, lista):
             print('Se esta utlizando el inventario seleccionado')
 
         elif opcion_secciones == 4:
-            actual.name = input('Ingrese un nuevo nombre para el actual: ')
+            actual.name = input('Ingrese un nuevo nombre para el inventario: ')
 
         elif opcion_secciones == 5:
             del actual
+            actual = lista[len(lista-1)]
+            print('Se asigno como actual el ultimo inventario creado')
 
         elif opcion_secciones == 6:
             break
@@ -103,6 +105,7 @@ if __name__ == '__main__':
                 inventario.agregar_producto(producto)
             except NameError as e:
                 inventario = creacion_de_inventario()
+                inventario.agregar_producto(producto)
 
             print(f'Se creo el producto {nombre_en_catalogo}')
 
